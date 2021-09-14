@@ -1,0 +1,78 @@
+﻿//public class AutomatedTellerMachine
+    //{
+    //    public AutomatedTellerMachine(int amount)
+    //    {
+    //        /*TankAmount = amount;*/
+    //    }
+
+    //    public long TankAmount { get; private set; }
+
+    //    public void Withdraw(int amount)
+    //    {
+    //        // if (TankAmount == 0)
+    //        //    throw new InvalidOperationException();
+
+    //        //TankAmount -= amount;
+    //    }
+    //}
+
+      [Fact]
+        public void HaevPenge_Saldo3000Haever1000_SaldoNedskrivesTil2000()
+        {
+            var target = new HaeveAutomat(3000);
+            target.Haev(1000);
+            Assert.Equal(2000, target.Saldo);
+        }
+
+        [Fact]
+        public void HaevPenge_Saldo3000Haever1500_SaldoNedskrivesTil1500()
+        {
+            var target = new HaeveAutomat(3000);
+            target.Haev(1500);
+            Assert.Equal(1500, target.Saldo);
+        }
+
+        [Fact]
+        public void HaevPenge_Saldo3000Haever4000_KasterException()
+        {
+            var target = new HaeveAutomat(3000);
+            Assert.Throws<OvertraekException>(() => target.Haev(4000));
+        }
+
+        [Fact]
+        public void HaevPenge_HaeverMereEndIndestaaende_SaldoAendresIkke()
+        {
+            var target = new HaeveAutomat(3000);
+            try
+            {
+                target.Haev(4000);
+            }
+            catch (Exception e) { }
+
+            Assert.Equal(3000, target.Saldo);
+        }
+
+
+        //[Fact]
+        //public void Ctor_TankAmountIsInitialized()
+        //{
+        //    var target = new AutomatedTellerMachine(1000);
+        //    Assert.Equal(1000, target.TankAmount);
+        //}
+
+        //[Fact]
+        //public void MoneyTankEmpty_UserWithdrawsMoney()
+        //{
+        //    var target = new AutomatedTellerMachine(0);
+
+        //    Assert.Throws<InvalidOperationException>(() =>target.Withdraw(1000));
+        //}
+
+        //[Fact]
+        //public void MoneyTankFull_UserWithdrawsMoney_MoneyDeductedFromTank()
+        //{
+        //    var target = new AutomatedTellerMachine(10000);
+        //    target.Withdraw(1000);
+
+        //    Assert.Equal(9000, target.TankAmount);
+        //}
